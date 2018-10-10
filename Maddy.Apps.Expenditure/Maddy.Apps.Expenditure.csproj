@@ -14,6 +14,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Maddy.Apps.Expenditure.Business\Maddy.Apps.Expenditure.Business.csproj" />
+    <ProjectReference Include="..\Maddy.Apps.Expenditure.DataProvider\Maddy.Apps.Expenditure.DataProvider.csproj" />
     <ProjectReference Include="..\Maddy.Apps.Expenditure.Models\Maddy.Apps.Expenditure.Models.csproj" />
     <ProjectReference Include="..\Maddy.Apps.Expenditure.Utils\Maddy.Apps.Expenditure.Utils.csproj" />
   </ItemGroup>
