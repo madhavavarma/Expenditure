@@ -5,6 +5,18 @@ VisualStudioVersion = 15.0.28010.2041
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Maddy.Apps.Expenditure", "Maddy.Apps.Expenditure\Maddy.Apps.Expenditure.csproj", "{F734B9CD-6345-46BF-90DD-918777821220}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Maddy.Apps.Expenditure.Business", "Maddy.Apps.Expenditure.Business\Maddy.Apps.Expenditure.Business.csproj", "{BACB5537-BB16-46FC-9B57-6ABEE6310B53}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Maddy.Apps.Expenditure.DataProvider", "Maddy.Apps.Expenditure.DataProvider\Maddy.Apps.Expenditure.DataProvider.csproj", "{488226B3-5EEE-4219-8F8B-F7D89CFDC4A5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Maddy.Apps.Expenditure.Entities", "Maddy.Apps.Expenditure.Entities\Maddy.Apps.Expenditure.Entities.csproj", "{0471494A-3BD4-46DA-BB2A-5B9282E60BA1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Maddy.Apps.Expenditure.Models", "Maddy.Apps.Expenditure.Models\Maddy.Apps.Expenditure.Models.csproj", "{94156D2B-EE29-4E78-B63F-89BD8F5016A6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Maddy.Apps.Expenditure.Utils", "Maddy.Apps.Expenditure.Utils\Maddy.Apps.Expenditure.Utils.csproj", "{851D3E7D-A583-450E-910D-447BDEBAAB96}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{6C62DA25-05A2-4229-84EC-C9023A2ABA67}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +27,26 @@ Global
 		{F734B9CD-6345-46BF-90DD-918777821220}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F734B9CD-6345-46BF-90DD-918777821220}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F734B9CD-6345-46BF-90DD-918777821220}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BACB5537-BB16-46FC-9B57-6ABEE6310B53}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BACB5537-BB16-46FC-9B57-6ABEE6310B53}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BACB5537-BB16-46FC-9B57-6ABEE6310B53}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BACB5537-BB16-46FC-9B57-6ABEE6310B53}.Release|Any CPU.Build.0 = Release|Any CPU
+		{488226B3-5EEE-4219-8F8B-F7D89CFDC4A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{488226B3-5EEE-4219-8F8B-F7D89CFDC4A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{488226B3-5EEE-4219-8F8B-F7D89CFDC4A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{488226B3-5EEE-4219-8F8B-F7D89CFDC4A5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0471494A-3BD4-46DA-BB2A-5B9282E60BA1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0471494A-3BD4-46DA-BB2A-5B9282E60BA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0471494A-3BD4-46DA-BB2A-5B9282E60BA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0471494A-3BD4-46DA-BB2A-5B9282E60BA1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94156D2B-EE29-4E78-B63F-89BD8F5016A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94156D2B-EE29-4E78-B63F-89BD8F5016A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94156D2B-EE29-4E78-B63F-89BD8F5016A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94156D2B-EE29-4E78-B63F-89BD8F5016A6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{851D3E7D-A583-450E-910D-447BDEBAAB96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{851D3E7D-A583-450E-910D-447BDEBAAB96}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{851D3E7D-A583-450E-910D-447BDEBAAB96}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{851D3E7D-A583-450E-910D-447BDEBAAB96}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
