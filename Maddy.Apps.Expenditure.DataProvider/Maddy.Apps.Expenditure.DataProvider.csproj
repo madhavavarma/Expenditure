@@ -4,4 +4,9 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Maddy.Apps.Expenditure.Entities\Maddy.Apps.Expenditure.Entities.csproj" />
+    <ProjectReference Include="..\Maddy.Apps.Expenditure.Utils\Maddy.Apps.Expenditure.Utils.csproj" />
+  </ItemGroup>
+
 </Project>
