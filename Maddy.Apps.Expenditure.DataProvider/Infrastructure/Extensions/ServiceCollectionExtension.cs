@@ -11,6 +11,8 @@ namespace Maddy.Apps.Expenditure.DataProvider.Infrastructure.Extensions
         public static void AddDataProviderDI(this IServiceCollection serviceCollection)
         {
             serviceCollection.AddTransient<IExpenditureTypeRepository, ExpenditureTypeRepository>();
+
+            serviceCollection.AddTransient<ITransactionTypeRepository, TransactionTypeRepository>();
         }
     }
 }

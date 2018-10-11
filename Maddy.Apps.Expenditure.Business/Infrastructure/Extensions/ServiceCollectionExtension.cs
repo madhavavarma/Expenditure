@@ -11,6 +11,8 @@ namespace Maddy.Apps.Expenditure.Business.Infrastructure.Extensions
         public static void AddBusinessDI(this IServiceCollection serviceCollection)
         {
             serviceCollection.AddTransient<IExpenditureTypeManager, ExpenditureTypeManager>();
+
+            serviceCollection.AddTransient<ITransactionTypeManager, TransactionTypeManager>();
         }
     }
 }

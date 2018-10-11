@@ -10,6 +10,7 @@ namespace Maddy.Apps.Expenditure.Business.Infrastructure.AutoMapper
         public DomainProfile()
         {
             CreateMap<ExpenditureType, ExpenditureTypeModel>();
+            CreateMap<TransactionType, TransactionTypeModel>();
         }
     }
 }
