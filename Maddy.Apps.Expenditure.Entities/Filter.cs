@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Maddy.Apps.Expenditure.Entities
 {
-    public class Filter
+    public class Filter : IEntity
     {
         public Filter()
         {

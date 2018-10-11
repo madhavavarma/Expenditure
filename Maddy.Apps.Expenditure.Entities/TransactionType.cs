@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Maddy.Apps.Expenditure.Entities
 {
-    public class TransactionType
+    public class TransactionType : IEntity
     {
         public TransactionType()
         {

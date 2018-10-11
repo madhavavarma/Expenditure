@@ -5,6 +5,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
+using Maddy.Apps.Expenditure.Business.Infrastructure.Extensions;
+using Maddy.Apps.Expenditure.DataProvider.Infrastructure.Extensions;
+using AutoMapper;
 
 namespace Maddy.Apps.Expenditure
 {
@@ -22,6 +25,12 @@ namespace Maddy.Apps.Expenditure
             var connectionString = this.Configuration.GetConnectionString("Expenditure");
 
             services.AddDbContext<ExpenditureContext>(options => options.UseSqlServer(connectionString));
+
+            services.AddBusinessDI();
+
+            services.AddDataProviderDI();
+
+            services.AddAutoMapper();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Maddy.Apps.Expenditure.Entities
 {
-    public class Expenditure
+    public class Expenditure : IEntity
     {
         public Expenditure()
         {
