@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Maddy.Apps.Expenditure.Entities;
+using System.Linq.Expressions;
 
 namespace Maddy.Apps.Expenditure.DataProvider.Repositories
 {
@@ -23,6 +24,9 @@ namespace Maddy.Apps.Expenditure.DataProvider.Repositories
 
         public IQueryable<TEntity> GetAll()
         => this.Query.AsNoTracking();
+
+        public IQueryable<TEntity> GetAll(Expression<Func<TEntity, object>> include )
+       => this.Query.Include(include).AsNoTracking();
 
         public async Task<TEntity> GetByIdAsync(int id)
         => await this.Query.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);

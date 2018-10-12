@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Maddy.Apps.Expenditure.Entities\Maddy.Apps.Expenditure.Entities.csproj" />
+    <ProjectReference Include="..\Maddy.Apps.Expenditure.Models\Maddy.Apps.Expenditure.Models.csproj" />
     <ProjectReference Include="..\Maddy.Apps.Expenditure.Utils\Maddy.Apps.Expenditure.Utils.csproj" />
   </ItemGroup>
 

@@ -12,7 +12,11 @@ namespace Maddy.Apps.Expenditure.Business.Infrastructure.AutoMapper
             CreateMap<ExpenditureType, ExpenditureTypeModel>();
             CreateMap<TransactionType, TransactionTypeModel>();
             CreateMap<Filter, FilterModel>();
-            
+            CreateMap<Entities.Expenditure, ExpenditureModel>();
+            CreateMap<ExpenditureFilter, ExpenditureFilterModel>();
+
+            CreateMap<ExpenditureModel, Entities.Expenditure>();
+            CreateMap<ExpenditureFilterModel, ExpenditureFilter>();
         }
     }
 }
