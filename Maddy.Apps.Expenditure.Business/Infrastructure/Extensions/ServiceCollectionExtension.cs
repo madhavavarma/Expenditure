@@ -13,6 +13,8 @@ namespace Maddy.Apps.Expenditure.Business.Infrastructure.Extensions
             serviceCollection.AddTransient<IExpenditureTypeManager, ExpenditureTypeManager>();
 
             serviceCollection.AddTransient<ITransactionTypeManager, TransactionTypeManager>();
+
+            serviceCollection.AddTransient<IFilterManager, FilterManager>();
         }
     }
 }

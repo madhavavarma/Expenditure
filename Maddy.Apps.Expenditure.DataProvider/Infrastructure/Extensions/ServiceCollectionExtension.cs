@@ -13,6 +13,8 @@ namespace Maddy.Apps.Expenditure.DataProvider.Infrastructure.Extensions
             serviceCollection.AddTransient<IExpenditureTypeRepository, ExpenditureTypeRepository>();
 
             serviceCollection.AddTransient<ITransactionTypeRepository, TransactionTypeRepository>();
+
+            serviceCollection.AddTransient<IFilterRepository, FilterRepository>();
         }
     }
 }
