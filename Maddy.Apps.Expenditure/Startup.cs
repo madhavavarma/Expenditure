@@ -32,6 +32,8 @@ namespace Maddy.Apps.Expenditure
 
             services.AddAutoMapper();
 
+            services.AddCors();
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
@@ -45,6 +47,12 @@ namespace Maddy.Apps.Expenditure
             {
                 app.UseHsts();
             }
+
+            app.UseCors(builder =>
+        builder.WithOrigins("http://localhost:4200")
+        .AllowAnyHeader()
+              .AllowAnyMethod()
+              .AllowCredentials());
 
             app.UseHttpsRedirection();
             app.UseMvc();

@@ -7,5 +7,9 @@ namespace Maddy.Apps.Expenditure.Business.Managers
     public interface IExpenditureManager
     {
         Task<IEnumerable<ExpenditureModel>> Search();
+
+        Task<bool> Save(ExpenditureModel expenditureModel);
+
+        //void AddOrUpdateExpenditureFilters(ExpenditureModel expenditureModel, Entities.Expenditure expenditure);
     }
 }

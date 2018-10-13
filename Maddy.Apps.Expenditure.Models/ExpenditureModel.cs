@@ -21,6 +21,8 @@ namespace Maddy.Apps.Expenditure.Models
 
         public int TransactionTypeId { get; set; }
 
+        public decimal Amount { get; set; }
+
         public List<ExpenditureFilterModel> ExpenditureFilters { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Maddy.Apps.Expenditure.Business.Managers;
+using Maddy.Apps.Expenditure.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -21,5 +22,9 @@ namespace Maddy.Apps.Expenditure.Controllers
         [HttpGet]
         public async Task<ActionResult> Search()
         => Ok(await this.expenditureManager.Search());
+
+        [HttpPost]
+        public async Task<ActionResult> Save([FromBody]ExpenditureModel expenditureModel)
+        => Ok(await this.expenditureManager.Save(expenditureModel));
     }
 }

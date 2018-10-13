@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Maddy.Apps.Expenditure.DataProvider.Migrations
 {
     [DbContext(typeof(ExpenditureContext))]
-    [Migration("20181010193519_ExpenditureFilter")]
-    partial class ExpenditureFilter
+    [Migration("20181013201504_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -27,7 +27,10 @@ namespace Maddy.Apps.Expenditure.DataProvider.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("DateTime");
+                    b.Property<decimal>("Amount");
+
+                    b.Property<DateTime>("DateTime")
+                        .HasColumnType("date");
 
                     b.Property<string>("Description");
 
@@ -46,13 +49,17 @@ namespace Maddy.Apps.Expenditure.DataProvider.Migrations
 
             modelBuilder.Entity("Maddy.Apps.Expenditure.Entities.ExpenditureFilter", b =>
                 {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
                     b.Property<int>("ExpenditureId");
 
                     b.Property<int>("FilterId");
 
-                    b.Property<int>("Id");
+                    b.HasKey("Id");
 
-                    b.HasKey("ExpenditureId", "FilterId");
+                    b.HasIndex("ExpenditureId");
 
                     b.HasIndex("FilterId");
 

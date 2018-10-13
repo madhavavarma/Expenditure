@@ -20,6 +20,8 @@ namespace Maddy.Apps.Expenditure.DataProvider.Repositories
             this.expenditureContext = expenditureContext;
         }
 
+        public DbContext Context { get => this.expenditureContext; }
+
         public DbSet<TEntity> Query { get => this.expenditureContext.Set<TEntity>(); }
 
         public IQueryable<TEntity> GetAll()
@@ -29,7 +31,7 @@ namespace Maddy.Apps.Expenditure.DataProvider.Repositories
        => this.Query.Include(include).AsNoTracking();
 
         public async Task<TEntity> GetByIdAsync(int id)
-        => await this.Query.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
+        => await this.Query.FirstOrDefaultAsync(x => x.Id == id);
 
 
         public async Task CreateAsync(TEntity entity)

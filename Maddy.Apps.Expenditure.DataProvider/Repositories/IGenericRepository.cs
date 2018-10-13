@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -10,6 +11,8 @@ namespace Maddy.Apps.Expenditure.DataProvider.Repositories
     public interface IGenericRepository<TEntity>
         where TEntity : class
     {
+        DbContext Context { get; }
+
         IQueryable<TEntity> GetAll();
 
         IQueryable<TEntity> GetAll(Expression<Func<TEntity, object>> include);

@@ -20,8 +20,11 @@ namespace Maddy.Apps.Expenditure.DataProvider.Contexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<ExpenditureFilter>()
-                .HasKey(s => new { s.ExpenditureId, s.FilterId });
+            modelBuilder.Entity<ExpenditureFilter>(expenditureFilter =>
+            {
+               //expenditureFilter.HasKey(s => new { s.ExpenditureId, s.FilterId });
+                expenditureFilter.Property(s => s.Id).ValueGeneratedOnAdd();
+            });
         }
     }
 }

@@ -4,10 +4,49 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Maddy.Apps.Expenditure.DataProvider.Migrations
 {
-    public partial class ExpenditureFilter : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "ExpenditureTypes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ExpenditureTypes", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Filters",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Filters", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TransactionTypes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Type = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TransactionTypes", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Expenditures",
                 columns: table => new
@@ -15,9 +54,10 @@ namespace Maddy.Apps.Expenditure.DataProvider.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Description = table.Column<string>(nullable: true),
-                    DateTime = table.Column<DateTime>(nullable: false),
+                    DateTime = table.Column<DateTime>(type: "date", nullable: false),
                     ExpenditureTypeId = table.Column<int>(nullable: false),
-                    TransactionTypeId = table.Column<int>(nullable: false)
+                    TransactionTypeId = table.Column<int>(nullable: false),
+                    Amount = table.Column<decimal>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -40,13 +80,14 @@ namespace Maddy.Apps.Expenditure.DataProvider.Migrations
                 name: "ExpenditureFilter",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     ExpenditureId = table.Column<int>(nullable: false),
                     FilterId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ExpenditureFilter", x => new { x.ExpenditureId, x.FilterId });
+                    table.PrimaryKey("PK_ExpenditureFilter", x => x.Id);
                     table.ForeignKey(
                         name: "FK_ExpenditureFilter_Expenditures_ExpenditureId",
                         column: x => x.ExpenditureId,
@@ -60,6 +101,11 @@ namespace Maddy.Apps.Expenditure.DataProvider.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ExpenditureFilter_ExpenditureId",
+                table: "ExpenditureFilter",
+                column: "ExpenditureId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ExpenditureFilter_FilterId",
@@ -84,6 +130,15 @@ namespace Maddy.Apps.Expenditure.DataProvider.Migrations
 
             migrationBuilder.DropTable(
                 name: "Expenditures");
+
+            migrationBuilder.DropTable(
+                name: "Filters");
+
+            migrationBuilder.DropTable(
+                name: "ExpenditureTypes");
+
+            migrationBuilder.DropTable(
+                name: "TransactionTypes");
         }
     }
 }
