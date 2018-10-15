@@ -10,6 +10,6 @@ namespace Maddy.Apps.Expenditure.Business.Managers
 
         Task<bool> Save(ExpenditureModel expenditureModel);
 
-        //void AddOrUpdateExpenditureFilters(ExpenditureModel expenditureModel, Entities.Expenditure expenditure);
+        Task<bool> DeleteAsync(int id);
     }
 }

@@ -26,5 +26,9 @@ namespace Maddy.Apps.Expenditure.Controllers
         [HttpPost]
         public async Task<ActionResult> Save([FromBody]ExpenditureModel expenditureModel)
         => Ok(await this.expenditureManager.Save(expenditureModel));
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> Delete(int id)
+        => Ok(await this.expenditureManager.DeleteAsync(id));
     }
 }

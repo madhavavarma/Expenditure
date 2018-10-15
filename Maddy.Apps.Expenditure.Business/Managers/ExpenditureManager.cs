@@ -30,7 +30,7 @@ namespace Maddy.Apps.Expenditure.Business.Managers
 
         public async Task<IEnumerable<ExpenditureModel>> Search()
         {
-            var expenditures = await this.expenditureRepository.GetAll(x => x.ExpenditureFilters).OrderBy(x => x.Id).ToListAsync();
+            var expenditures = await this.expenditureRepository.GetAll(x => x.ExpenditureFilters).OrderByDescending(x => x.Id).ToListAsync();
 
             return mapper.Map<IEnumerable<Entities.Expenditure>, IEnumerable<ExpenditureModel>>(expenditures);
         }
@@ -86,6 +86,13 @@ namespace Maddy.Apps.Expenditure.Business.Managers
                     mapper.Map(expenditureFilter, expenditure.ExpenditureFilters.SingleOrDefault(c => c.Id == expenditureFilter.Id));
                 }
             }
+        }
+
+        public async Task<bool> DeleteAsync(int id)
+        {
+            await this.expenditureRepository.DeleteAsync(id);
+
+            return true;
         }
     }
 }
