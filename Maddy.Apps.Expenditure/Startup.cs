@@ -48,11 +48,14 @@ namespace Maddy.Apps.Expenditure
                 app.UseHsts();
             }
 
-            app.UseCors(builder =>
-        builder.WithOrigins("http://localhost:4200")
-        .AllowAnyHeader()
-              .AllowAnyMethod()
-              .AllowCredentials());
+            if (this.Configuration.GetSection("cors:origins").Exists())
+            {
+                app.UseCors(builder =>
+                                    builder.WithOrigins(this.Configuration.GetSection("cors:origins").Get<string[]>())
+                                            .AllowAnyHeader()
+                                            .AllowAnyMethod()
+                                            .AllowCredentials());
+            }
 
             app.UseHttpsRedirection();
             app.UseMvc();
