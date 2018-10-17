@@ -10,6 +10,7 @@ using Maddy.Apps.Expenditure.DataProvider.Repositories;
 using Maddy.Apps.Expenditure.Entities;
 using Maddy.Apps.Expenditure.Models;
 using Microsoft.EntityFrameworkCore;
+using Maddy.Apps.Expenditure.Business.Infrastructure.Extensions;
 
 namespace Maddy.Apps.Expenditure.Business.Managers
 {
@@ -30,7 +31,13 @@ namespace Maddy.Apps.Expenditure.Business.Managers
 
         public async Task<IEnumerable<ExpenditureModel>> Search()
         {
-            var expenditures = await this.expenditureRepository.GetAll(x => x.ExpenditureFilters).OrderByDescending(x => x.Id).ToListAsync();
+            var expenditures = await this.expenditureRepository
+                                            .GetAll()
+                                            .IncludeMultiple(x => x.ExpenditureFilters,
+                                                                  x => x.TransactionType,
+                                                                  x => x.ExpenditureType)
+                                            .OrderByDescending(x => x.Id)
+                                            .ToListAsync();
 
             return mapper.Map<IEnumerable<Entities.Expenditure>, IEnumerable<ExpenditureModel>>(expenditures);
         }

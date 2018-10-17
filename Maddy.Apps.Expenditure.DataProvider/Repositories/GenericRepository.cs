@@ -28,7 +28,8 @@ namespace Maddy.Apps.Expenditure.DataProvider.Repositories
         => this.Query.AsNoTracking();
 
         public IQueryable<TEntity> GetAll(Expression<Func<TEntity, object>> include )
-       => this.Query.Include(include).AsNoTracking();
+       => this.Query.Include(include).AsNoTracking();      
+
 
         public async Task<TEntity> GetByIdAsync(int id)
         => await this.Query.FirstOrDefaultAsync(x => x.Id == id);
