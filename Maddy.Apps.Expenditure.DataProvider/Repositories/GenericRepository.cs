@@ -30,15 +30,18 @@ namespace Maddy.Apps.Expenditure.DataProvider.Repositories
         public IQueryable<TEntity> GetAll(Expression<Func<TEntity, object>> include )
        => this.Query.Include(include).AsNoTracking();      
 
-
         public async Task<TEntity> GetByIdAsync(int id)
         => await this.Query.FirstOrDefaultAsync(x => x.Id == id);
 
-
-        public async Task CreateAsync(TEntity entity)
+        public async Task<TEntity> GetByIdAsync(int id, Expression<Func<TEntity, object>> include)
+        => await this.Query.Include(include).FirstOrDefaultAsync(x => x.Id == id);
+        
+        public async Task<TEntity> CreateAsync(TEntity entity)
         {
             await this.Query.AddAsync(entity);
             await expenditureContext.SaveChangesAsync();
+
+            return entity;
         }
 
         public async Task UpdateAsync(int id, TEntity entity)

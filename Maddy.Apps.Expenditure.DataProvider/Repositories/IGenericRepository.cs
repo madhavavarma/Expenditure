@@ -13,13 +13,17 @@ namespace Maddy.Apps.Expenditure.DataProvider.Repositories
     {
         DbContext Context { get; }
 
+        DbSet<TEntity> Query { get; }
+
         IQueryable<TEntity> GetAll();
 
         IQueryable<TEntity> GetAll(Expression<Func<TEntity, object>> include);
 
         Task<TEntity> GetByIdAsync(int id);
 
-        Task CreateAsync(TEntity entity);
+        Task<TEntity> GetByIdAsync(int id, Expression<Func<TEntity, object>> include);
+
+        Task<TEntity> CreateAsync(TEntity entity);
 
         Task UpdateAsync(int id, TEntity entity);
 

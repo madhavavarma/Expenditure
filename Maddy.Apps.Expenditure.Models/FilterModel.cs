@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Maddy.Apps.Expenditure.Entities
+namespace Maddy.Apps.Expenditure.Models
 {
     public class FilterModel
     {

@@ -8,5 +8,7 @@ namespace Maddy.Apps.Expenditure.Business.Managers
     public interface IFilterManager
     {
         Task<IEnumerable<FilterModel>> SearchAsync(string partialFilterName);
+
+        Task AddFilter(FilterModel filterModel);
     }
 }

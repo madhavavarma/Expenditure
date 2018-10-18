@@ -11,5 +11,7 @@ namespace Maddy.Apps.Expenditure.Models
         public int ExpenditureId { get; set; } 
 
         public int FilterId { get; set; }
+
+        public FilterModel Filter { get; set; }
     }
 }

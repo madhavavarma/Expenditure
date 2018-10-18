@@ -17,6 +17,7 @@ namespace Maddy.Apps.Expenditure.Business.Infrastructure.AutoMapper
 
             CreateMap<ExpenditureModel, Entities.Expenditure>();
             CreateMap<ExpenditureFilterModel, ExpenditureFilter>();
+            CreateMap<FilterModel, Filter>();
         }
     }
 }

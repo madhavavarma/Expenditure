@@ -35,5 +35,23 @@ namespace Maddy.Apps.Expenditure.Business.Managers
 
             return mapper.Map<IEnumerable<Filter>, IEnumerable<FilterModel>>(Filters);
         }
+
+        public async Task AddFilter(FilterModel filterModel)
+        {
+            if (filterModel.Id > 0)
+            {
+                var filter = await this.FilterRepository.GetByIdAsync(filterModel.Id);
+
+                mapper.Map<FilterModel, Filter>(filterModel, filter);
+
+                await this.FilterRepository.UpdateAsync(filter.Id, filter);
+            }
+            else
+            {
+                var filter = mapper.Map<Filter>(filterModel);
+
+                await this.FilterRepository.CreateAsync(filter);
+            }
+        }
     }
 }

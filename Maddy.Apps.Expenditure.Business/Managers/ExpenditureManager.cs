@@ -33,13 +33,39 @@ namespace Maddy.Apps.Expenditure.Business.Managers
         {
             var expenditures = await this.expenditureRepository
                                             .GetAll()
-                                            .IncludeMultiple(x => x.ExpenditureFilters,
-                                                                  x => x.TransactionType,
-                                                                  x => x.ExpenditureType)
-                                            .OrderByDescending(x => x.Id)
+                                            .Include(x => x.ExpenditureFilters)
+                                            .ThenInclude(x => x.Filter)
+                                            .IncludeMultiple(x => x.TransactionType,
+                                                              x => x.ExpenditureType)
+
+                                            .OrderByDescending(x => x.DateTime)
                                             .ToListAsync();
 
-            return mapper.Map<IEnumerable<Entities.Expenditure>, IEnumerable<ExpenditureModel>>(expenditures);
+            var expenditureModels = mapper.Map<IEnumerable<Entities.Expenditure>, IEnumerable<ExpenditureModel>>(expenditures);
+
+            // Move code to Automapper
+            foreach (var expenditureModel in expenditureModels)
+            {
+                expenditureModel.Filters = expenditureModel.ExpenditureFilters.Select(x => x.Filter).ToList();
+            }
+
+            return expenditureModels;
+        }
+
+        public async Task<ExpenditureModel> GetByIdAsync(int id)
+        {
+            var expenditure = await this.expenditureRepository
+                                                    .Query
+                                                    .Include(x => x.ExpenditureFilters)
+                                                    .ThenInclude(x => x.Filter)
+                                                    .Where(x => x.Id == id)
+                                                    .FirstOrDefaultAsync();
+
+            var expenditureModel = mapper.Map<ExpenditureModel>(expenditure);
+
+            expenditureModel.Filters = expenditureModel.ExpenditureFilters.Select(x => x.Filter).ToList();
+
+            return expenditureModel;
         }
 
         public async Task<bool> Save(ExpenditureModel expenditureModel)
@@ -50,34 +76,64 @@ namespace Maddy.Apps.Expenditure.Business.Managers
 
                mapper.Map<ExpenditureModel, Entities.Expenditure>(expenditureModel, expenditure);
 
-                foreach(var expenditureFilterModel in expenditureModel.ExpenditureFilters)
-                {
-                    if(expenditureFilterModel.Id > 0)
-                    {
-                        var expenditureFilter = expenditure.ExpenditureFilters.SingleOrDefault(x => x.Id == expenditureFilterModel.Id);
-
-                        mapper.Map<ExpenditureFilterModel, Entities.ExpenditureFilter>(expenditureFilterModel, expenditureFilter);
-
-                        await this.expenditureFilterRepository.UpdateAsync(expenditureFilter.Id, expenditureFilter);
-                    }
-                    else
-                    {
-                        var expenditureFilter = mapper.Map<ExpenditureFilterModel, Entities.ExpenditureFilter>(expenditureFilterModel);
-
-                        await this.expenditureFilterRepository.CreateAsync(expenditureFilter);
-                    }
-                }
-
                 await this.expenditureRepository.UpdateAsync(expenditure.Id, expenditure);
+
+                await this.UpdateExpenditureFilters(expenditureModel.Filters, expenditure.Id);
             }
             else
             {
                 var expenditure = mapper.Map<ExpenditureModel, Entities.Expenditure>(expenditureModel);
 
                 await this.expenditureRepository.CreateAsync(expenditure);
+
+                await this.AddExpenditureFilters(expenditureModel.Filters, expenditure.Id);
             }
 
             return true;
+        }
+
+        public async Task AddExpenditureFilters(List<FilterModel> filterModels, int expenditureId)
+        {
+            filterModels.ForEach(filterModel => 
+            {
+                var expenditureFilter = new ExpenditureFilter()
+                {
+                    ExpenditureId = expenditureId,
+                    FilterId = filterModel.Id
+                };
+
+                this.expenditureFilterRepository.Context.Add(expenditureFilter);
+            });
+
+            await this.expenditureFilterRepository.Context.SaveChangesAsync();
+        }
+
+        public async Task UpdateExpenditureFilters(List<FilterModel> filterModels, int expenditureId)
+        {
+            var expenditure = await this.expenditureRepository
+                                  .GetByIdAsync(expenditureId, x => x.ExpenditureFilters);
+
+
+            var addList = filterModels
+                                .Where(filterModel => !expenditure
+                                                          .ExpenditureFilters
+                                                          .Where(expenditureFilter => expenditureFilter.FilterId == filterModel.Id)
+                                                          .Any())
+                                .ToList();
+
+            var deleteList = expenditure
+                                .ExpenditureFilters
+                                .Where(expenditureFilter => !filterModels
+                                                               .Where(filterModel => expenditureFilter.FilterId == filterModel.Id)
+                                                               .Any())
+                                .ToList();
+
+            foreach(var deleteItem in deleteList)
+            {
+                await this.expenditureFilterRepository.DeleteAsync(deleteItem.Id);
+            }
+
+           await this.AddExpenditureFilters(addList, expenditureId);            
         }
 
         public void AddOrUpdateExpenditureFilters(ExpenditureModel expenditureModel, Entities.Expenditure expenditure)

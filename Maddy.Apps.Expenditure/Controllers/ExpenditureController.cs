@@ -23,6 +23,10 @@ namespace Maddy.Apps.Expenditure.Controllers
         public async Task<ActionResult> Search()
         => Ok(await this.expenditureManager.Search());
 
+        [HttpGet("{id}")]
+        public async Task<ActionResult> GetById(int id)
+        => Ok(await this.expenditureManager.GetByIdAsync(id));
+
         [HttpPost]
         public async Task<ActionResult> Save([FromBody]ExpenditureModel expenditureModel)
         => Ok(await this.expenditureManager.Save(expenditureModel));
