@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Maddy.Apps.Expenditure.DataProvider.Contexts;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
+using Microsoft.EntityFrameworkCore;
+using Maddy.Apps.Expenditure.Business.Infrastructure.Extensions;
+using Maddy.Apps.Expenditure.DataProvider.Infrastructure.Extensions;
+using AutoMapper;
 
 namespace Maddy.Apps.Expenditure
 {
@@ -22,13 +20,23 @@ namespace Maddy.Apps.Expenditure
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var connectionString = this.Configuration.GetConnectionString("Expenditure");
+
+            services.AddDbContext<ExpenditureContext>(options => options.UseSqlServer(connectionString));
+
+            services.AddBusinessDI();
+
+            services.AddDataProviderDI();
+
+            services.AddAutoMapper();
+
+            services.AddCors();
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
@@ -38,6 +46,15 @@ namespace Maddy.Apps.Expenditure
             else
             {
                 app.UseHsts();
+            }
+
+            if (this.Configuration.GetSection("cors:origins").Exists())
+            {
+                app.UseCors(builder =>
+                                    builder.WithOrigins(this.Configuration.GetSection("cors:origins").Get<string[]>())
+                                            .AllowAnyHeader()
+                                            .AllowAnyMethod()
+                                            .AllowCredentials());
             }
 
             app.UseHttpsRedirection();

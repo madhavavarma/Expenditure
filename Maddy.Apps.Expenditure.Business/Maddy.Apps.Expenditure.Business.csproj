@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="5.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Maddy.Apps.Expenditure.DataProvider\Maddy.Apps.Expenditure.DataProvider.csproj" />
     <ProjectReference Include="..\Maddy.Apps.Expenditure.Entities\Maddy.Apps.Expenditure.Entities.csproj" />
     <ProjectReference Include="..\Maddy.Apps.Expenditure.Models\Maddy.Apps.Expenditure.Models.csproj" />
